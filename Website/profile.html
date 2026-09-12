@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beacon — Player Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="arcade-bg.css" />
+<link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+<div class="arcade-backdrop">
+  <div class="stars-small"></div>
+  <div class="stars-big"></div>
+  <div class="horizon-glow"></div>
+  <div class="grid-floor"></div>
+  <span class="sprite s1">&#11088;</span>
+  <span class="sprite s2">&#128126;</span>
+  <span class="sprite s3">&#127918;</span>
+  <span class="sprite s4">&#128190;</span>
+  <span class="sprite s5">&#127918;</span>
+  <span class="sprite s6">&#11088;</span>
+</div>
+
+<div class="dash-shell pixel-frame">
+
+  <div class="hud-bar">
+    <span class="player">PLAYER 1</span>
+    <span class="streak">&#128293; <span id="streakVal">0</span> DAY STREAK</span>
+    <span class="xp">XP <span id="hudXp">000</span>&nbsp;/&nbsp;<span id="hudXpMax">1000</span></span>
+  </div>
+
+  <div class="profile-nav">
+    <a href="home.html" class="back-btn">&#9668; Back to Quests</a>
+    <div class="profile-title">[ PLAYER HERO PROFILE ]</div>
+  </div>
+
+  <div class="profile-grid">
+
+    <!-- left: avatar + level + badges -->
+    <div class="avatar-card pixel-frame-sm">
+      <div class="avatar-ring">
+        <span class="avatar-glyph">&#9876;&#65039;</span>
+      </div>
+      <div class="player-name" id="playerName">PLAYER</div>
+      <div class="player-rank">&#9876;&#65039; <span id="playerRank">Arcade Novice</span></div>
+
+      <div class="level-label">LEVEL <span id="playerLevel">0</span> PROGRESS</div>
+      <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+      <div class="xp-count"><span id="xpCurrent">0</span> / <span id="xpMax">1000</span> XP</div>
+
+      <div class="badges-label">BADGES UNLOCKED</div>
+      <div class="badge-row">
+        <div class="badge-slot" id="badgeFirstLog">
+          <span class="lock">&#128274;</span>
+          <span class="badge-label">First Log</span>
+        </div>
+        <div class="badge-slot" id="badgeFastCode">
+          <span class="lock">&#128274;</span>
+          <span class="badge-label">Fast Code</span>
+        </div>
+        <div class="badge-slot" id="badgeStreak">
+          <span class="lock">&#128274;</span>
+          <span class="badge-label">Streak</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- right: stats stack -->
+    <div class="stats-column">
+
+      <div class="panel">
+        <div class="info-row">
+          <span>&#127891; Academic Class:</span>
+          <span class="val green" id="academicClass">CLASS --</span>
+        </div>
+        <div class="info-row">
+          <span>&#9876;&#65039; Difficulty Tier:</span>
+          <span class="val yellow" id="difficultyTier">—</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Skill Mastery (Retro Radar)</div>
+        <div class="radar-grid">
+          <div class="hex">
+            <div class="hex-icon syntax">&lt;/&gt;</div>
+            <div class="hex-label">Syntax</div>
+            <div class="hex-pct">0%</div>
+          </div>
+          <div class="hex">
+            <div class="hex-icon loops">&#8635;</div>
+            <div class="hex-label">Loops</div>
+            <div class="hex-pct">0%</div>
+          </div>
+          <div class="hex">
+            <div class="hex-icon variables">{x}</div>
+            <div class="hex-label">Variables</div>
+            <div class="hex-pct">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Learning Speed &amp; Stats</div>
+        <div class="stat-grid">
+          <div class="stat-box">
+            <div class="stat-label">Login Streak</div>
+            <div class="stat-val"><span id="loginStreak">0</span> Days</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Global Rank</div>
+            <div class="stat-val">#--</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Quests Done</div>
+            <div class="stat-val">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="next-quest">
+        <div>
+          <span class="nq-label">Next Best Quest</span>
+          <span class="nq-title">Mastering Output &amp; Variables</span>
+        </div>
+        <button class="unlock-btn" type="button" onclick="location.href='home.html'">Unlock &#9658;</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="profile.js"></script>
+</body>
+</html>

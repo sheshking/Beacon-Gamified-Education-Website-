@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beacon — Welcome Back</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Archivo+Black&family=Inter:wght@400;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+<div class="arcade-bg">
+  <div class="sky-scene"></div>
+
+  <div class="beam-glow"></div>
+
+  <div class="icon-layer icon-dim">
+    <span style="top:14%; left:8%;">&lt;/&gt;</span>
+    <span style="top:22%; left:24%;">{ }</span>
+    <span style="top:10%; left:40%;">&#128013; Python</span>
+    <span style="top:30%; left:12%;">&#9749; Java</span>
+    <span style="top:18%; left:56%;">C++</span>
+    <span style="top:38%; left:30%;">[ ]</span>
+    <span style="top:26%; left:46%;">&#10003;</span>
+    <span style="top:34%; left:60%;">&lt;/&gt;</span>
+    <span style="top:8%; left:20%;">{ }</span>
+    <span style="top:44%; left:42%;">&#128013; Python</span>
+    <span style="top:6%; left:70%;">&#9749; Java</span>
+    <span style="top:16%; left:84%;">C++</span>
+    <span style="top:24%; left:72%;">def solve():</span>
+    <span style="top:32%; left:88%;">{ }</span>
+    <span style="top:40%; left:76%;">&lt;/&gt;</span>
+    <span style="top:12%; left:2%;">for (;;)</span>
+    <span style="top:20%; left:66%;">[ ]</span>
+    <span style="top:46%; left:66%;">return true;</span>
+    <span style="top:4%; left:52%;">import os</span>
+    <span style="top:48%; left:14%;">print()</span>
+    <span style="top:28%; left:2%;">&#10003;</span>
+    <span style="top:36%; left:92%;">&#10003;</span>
+    <span style="top:42%; left:56%;">while (1) {</span>
+    <span style="top:2%; left:32%;">git commit</span>
+  </div>
+
+  <div class="icon-layer icon-bright">
+    <span style="top:14%; left:8%;">&lt;/&gt;</span>
+    <span style="top:22%; left:24%;">{ }</span>
+    <span style="top:10%; left:40%;">&#128013; Python</span>
+    <span style="top:30%; left:12%;">&#9749; Java</span>
+    <span style="top:18%; left:56%;">C++</span>
+    <span style="top:38%; left:30%;">[ ]</span>
+    <span style="top:26%; left:46%;">&#10003;</span>
+    <span style="top:34%; left:60%;">&lt;/&gt;</span>
+    <span style="top:8%; left:20%;">{ }</span>
+    <span style="top:44%; left:42%;">&#128013; Python</span>
+    <span style="top:6%; left:70%;">&#9749; Java</span>
+    <span style="top:16%; left:84%;">C++</span>
+    <span style="top:24%; left:72%;">def solve():</span>
+    <span style="top:32%; left:88%;">{ }</span>
+    <span style="top:40%; left:76%;">&lt;/&gt;</span>
+    <span style="top:12%; left:2%;">for (;;)</span>
+    <span style="top:20%; left:66%;">[ ]</span>
+    <span style="top:46%; left:66%;">return true;</span>
+    <span style="top:4%; left:52%;">import os</span>
+    <span style="top:48%; left:14%;">print()</span>
+    <span style="top:28%; left:2%;">&#10003;</span>
+    <span style="top:36%; left:92%;">&#10003;</span>
+    <span style="top:42%; left:56%;">while (1) {</span>
+    <span style="top:2%; left:32%;">git commit</span>
+  </div>
+
+  <div class="lighthouse">
+    <div class="lh-finial"></div>
+    <span class="beacon-core"></span>
+  </div>
+</div>
+
+<div class="login-shell">
+  <div class="login-card">
+
+    <div class="login-hud">
+      <div class="hud-left">PLAYER <strong id="hudPlayer">GUEST</strong> &nbsp;&middot;&nbsp; LVL <span id="hudLevel">01</span></div>
+      <div class="hud-right">
+        <div class="xp-bar-track"><div class="xp-bar-fill" id="xpFill"></div></div>
+        <span id="xpLabel">0/1000 XP</span>
+      </div>
+    </div>
+
+    <div class="login-hero">
+      <div class="login-logo">BEACON</div>
+      <div class="login-tagline">[ CODING LEARNING PATH ]</div>
+
+      <div class="terminal-line">&gt; wait... why does that even compile?</div>
+      <div class="glitch-line">FIND OUT.</div>
+      <div class="glitch-line">BUILD WHAT DOESN'T BREAK<span class="cursor-block"></span></div>
+
+      <div class="login-quote">
+        // "Modest doubt is called the beacon of the wise."
+        <span class="quote-attr">— William Shakespeare</span>
+      </div>
+    </div>
+
+    <div class="pill-group" id="pillGroup">
+      <div class="pill" data-val="Beginner">Beginner</div>
+      <div class="pill active" data-val="Intermediate">Intermediate</div>
+      <div class="pill" data-val="Expert">Advanced</div>
+    </div>
+
+    <div class="login-form-section">
+      <h2>Welcome back</h2>
+      <div class="form-sub">Log in with the username you signed up with.</div>
+
+      <form id="loginForm" novalidate>
+        <div class="field-label">USERNAME</div>
+        <input type="text" class="username-input" id="usernameInput" placeholder="e.g. code_ninja_07" autocomplete="username" />
+        <div class="field-error" id="loginError">We don't recognize that username on this device yet.</div>
+
+        <div class="signup-row">Not a user? <a href="signup.html">Sign up</a></div>
+
+        <button type="submit" class="login-submit">Light it up &#8594;</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>

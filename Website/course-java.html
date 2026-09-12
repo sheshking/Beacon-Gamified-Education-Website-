@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beacon — Java Arcade Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="arcade-bg.css" />
+<link rel="stylesheet" href="course.css" />
+</head>
+<!--
+  =========================================================
+  FULLY AUTOMATIC VICTORY OVERLAY
+
+  Paste this whole block into your course page, right before
+  </body>. That's the ONLY step — no other code needs to
+  change.
+
+  How it works: it listens for any audio file whose name
+  contains "victory" (or "success" / "complete" / "win")
+  being played anywhere on the page, and shows the trophy
+  animation automatically at that exact moment — since
+  that's already how your site marks a section as done.
+  =========================================================
+-->
+<script>
+(function () {
+  // ---- 1. Inject CSS ----
+  const style = document.createElement('style');
+  style.textContent = `
+    .victory-overlay {
+      position: fixed; inset: 0;
+      background: radial-gradient(circle at center, #0d1a15 0%, #05070f 100%);
+      display: none; align-items: center; justify-content: center;
+      z-index: 999999; opacity: 0; transition: opacity 0.3s ease;
+    }
+    .victory-overlay.active { display: flex; opacity: 1; }
+    .victory-inner {
+      text-align: center; position: relative; z-index: 2;
+      animation: victoryPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes victoryPop {
+      0% { transform: scale(0.7); opacity: 0; }
+      60% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+    .victory-trophy {
+      font-size: 72px; margin-bottom: 10px;
+      display: inline-block;
+      animation: victoryBounce 1.4s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(74,222,154,0.6));
+    }
+    @keyframes victoryBounce {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-10px) rotate(3deg); }
+    }
+    .victory-title {
+      font-family: 'Press Start 2P', monospace;
+      color: #4ade9a; font-size: 26px; letter-spacing: 1px;
+      margin: 10px 0 6px;
+      text-shadow: 0 0 16px rgba(74,222,154,0.6);
+    }
+    .victory-subtitle {
+      font-family: 'Press Start 2P', monospace;
+      color: #ffd54a; font-size: 13px; letter-spacing: 1px;
+      margin: 0 0 22px;
+    }
+    .victory-xp {
+      display: inline-block;
+      font-family: 'Press Start 2P', monospace;
+      color: #0a0e1f; background: #4ade9a;
+      font-size: 14px; padding: 8px 18px;
+      border-radius: 4px; margin-bottom: 30px;
+      box-shadow: 0 0 20px rgba(74,222,154,0.4);
+    }
+    .victory-continue {
+      display: block; margin: 0 auto;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 13px; color: #0a0e1f;
+      background: #4ade9a; border: none;
+      padding: 14px 30px; border-radius: 4px; cursor: pointer;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    .victory-continue:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+    .victory-confetti {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; overflow: hidden; z-index: 1;
+    }
+    .confetti-piece {
+      position: absolute; top: -20px;
+      width: 8px; height: 8px;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0.4; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ---- 2. Inject overlay HTML ----
+  const overlay = document.createElement('div');
+  overlay.id = 'victoryOverlay';
+  overlay.className = 'victory-overlay';
+  overlay.innerHTML = `
+    <div class="victory-confetti" id="victoryConfetti"></div>
+    <div class="victory-inner">
+      <div class="victory-trophy">🏆</div>
+      <h2 class="victory-title">MISSION ACCOMPLISHED</h2>
+      <p class="victory-subtitle" id="victorySubtitle">Section Complete!</p>
+      <div class="victory-xp" id="victoryXp">+10 XP</div>
+      <button class="victory-continue" id="victoryContinueBtn">Continue ▸</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  const colors = ['#4ade9a', '#ffd54a', '#6c8cff', '#ff6b6b'];
+
+  function spawnConfetti() {
+    const container = document.getElementById('victoryConfetti');
+    container.innerHTML = '';
+    for (let i = 0; i < 40; i++) {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.left = Math.random() * 100 + '%';
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+      piece.style.animationDelay = (Math.random() * 0.4) + 's';
+      container.appendChild(piece);
+    }
+  }
+
+  // ---- 3. Function that shows the overlay ----
+  let lastShown = 0;
+  window.showVictory = function (options) {
+    // debounce so it can't double-fire within 2s (e.g. two audio events at once)
+    const now = Date.now();
+    if (now - lastShown < 2000) return;
+    lastShown = now;
+
+    options = options || {};
+    const xp = options.xp != null ? options.xp : 10;
+    const message = options.message || 'Section Complete!';
+
+    document.getElementById('victorySubtitle').textContent = message;
+    document.getElementById('victoryXp').textContent = '+' + xp + ' XP';
+
+    spawnConfetti();
+    overlay.classList.add('active');
+
+    const btn = document.getElementById('victoryContinueBtn');
+    const closeHandler = function () {
+      overlay.classList.remove('active');
+      btn.removeEventListener('click', closeHandler);
+    };
+    btn.addEventListener('click', closeHandler, { once: true });
+  };
+
+  // ---- 4. AUTO-DETECTION: hook into audio playback ----
+  // Any audio element (including `new Audio(...)`) whose source file name
+  // contains one of these words will automatically trigger the overlay
+  // the moment it plays — no need to call showVictory() yourself.
+  const TRIGGER_KEYWORDS = ['victory', 'success', 'complete', 'win'];
+
+  const originalPlay = HTMLMediaElement.prototype.play;
+  HTMLMediaElement.prototype.play = function (...args) {
+    try {
+      const src = (this.currentSrc || this.src || '').toLowerCase();
+      if (TRIGGER_KEYWORDS.some(k => src.includes(k))) {
+        window.showVictory();
+      }
+    } catch (e) { /* fail silently, never block audio playback */ }
+    return originalPlay.apply(this, args);
+  };
+})();
+</script>
+<body>
+<div class="arcade-backdrop">
+  <div class="stars-small"></div>
+  <div class="stars-big"></div>
+  <div class="horizon-glow"></div>
+  <div class="grid-floor"></div>
+  <span class="sprite s1">&#11088;</span>
+  <span class="sprite s2">&#128126;</span>
+  <span class="sprite s3">&#127918;</span>
+  <span class="sprite s4">&#128190;</span>
+  <span class="sprite s5">&#127918;</span>
+  <span class="sprite s6">&#11088;</span>
+</div>
+
+<div class="quest-shell pixel-frame">
+
+  <div class="hud-bar">
+    <span class="player" id="hudPlayer">PLAYER 1</span>
+    <span class="streak">&#128293; 0 DAY STREAK</span>
+    <span class="xp">XP <span id="hudXp">000</span>&nbsp;/&nbsp;1000</span>
+  </div>
+
+  <div class="quest-nav">
+    <a href="home.html" class="back-btn">&#9668; Select Quest</a>
+    <div class="quest-title" id="questTitle">[ JAVA ARCADE QUEST ]</div>
+  </div>
+
+  <div class="quest-layout">
+
+    <aside class="sidebar">
+      <div class="sidebar-label">Sections</div>
+      <select class="section-select" id="sectionSelect"></select>
+      <div class="sidebar-label">Section Lessons</div>
+      <div class="lesson-list" id="lessonList"></div>
+    </aside>
+
+    <main class="lesson-panel">
+      <div class="lesson-heading" id="lessonHeading"></div>
+
+      <div class="block-label">Example &amp; Expected Output</div>
+      <div class="example-box" id="exampleBox"></div>
+
+      <div class="instruction-text" id="instructionText"></div>
+
+      <div class="block-label">Terminal Code Editor</div>
+      <textarea class="code-editor" id="codeEditor" spellcheck="false"></textarea>
+
+      <div class="terminal-box" id="terminalBox"></div>
+
+      <div class="run-row">
+        <button class="run-btn" id="runBtn" type="button">&#9658; Execute Code &amp; Receive Output</button>
+        <span class="result-msg" id="resultMsg"></span>
+      </div>
+
+      <button class="next-btn" id="nextBtn" type="button">Next Lesson &#9658;</button>
+
+      <div class="engine-note">
+        This checker runs a simplified Beacon interpreter for print statements, variables and basic math — not a real Java compiler — so write plain statements (no class or main method needed).
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<script src="lessons-java.js"></script>
+<script src="sfx.js"></script>
+<script src="course-engine.js"></script>
+</body>
+</html>

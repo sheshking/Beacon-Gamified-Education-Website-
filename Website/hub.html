@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beacon — Guild Intel &amp; Feedback Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="arcade-bg.css" />
+<link rel="stylesheet" href="hub.css" />
+</head>
+<body>
+<div class="arcade-backdrop">
+  <div class="stars-small"></div>
+  <div class="stars-big"></div>
+  <div class="horizon-glow"></div>
+  <div class="grid-floor"></div>
+  <span class="sprite s1">&#11088;</span>
+  <span class="sprite s2">&#128126;</span>
+  <span class="sprite s3">&#127918;</span>
+  <span class="sprite s4">&#128190;</span>
+  <span class="sprite s5">&#127918;</span>
+  <span class="sprite s6">&#11088;</span>
+</div>
+
+<div class="hub-shell pixel-frame">
+
+  <div class="hud-bar">
+    <span class="player" id="hudPlayer">PLAYER 1</span>
+    <span class="streak">&#128293; <span id="streakVal">0</span> DAY STREAK</span>
+    <span class="xp">XP <span id="hudXp">000</span>&nbsp;/&nbsp;1000</span>
+  </div>
+
+  <div class="hub-nav">
+    <a href="home.html" class="back-btn">&#9668; Back to Quests</a>
+    <div class="hub-title">[ GUILD INTEL &amp; FEEDBACK HUB ]</div>
+  </div>
+
+  <div class="subnav">
+    <button class="subnav-btn active" data-panel="about" type="button">&#9632; About Us (The Guild)</button>
+    <button class="subnav-btn" data-panel="faq" type="button">&#10067; Arcade FAQ &amp; Manual</button>
+    <button class="subnav-btn" data-panel="feedback" type="button">&#9998; Transmit App Feedback</button>
+  </div>
+
+  <!-- ============ ABOUT PANEL ============ -->
+  <div class="hub-panel active" id="panel-about">
+
+    <div class="banner-box">
+      <div class="banner-title">&#9889; THE BEACON ARCHITECTS &amp; DEV GUILD</div>
+      <div class="banner-sub">Meet the visionaries behind BEACON. Combining retro arcade design, real execution terminal verification, and curated video masterclasses.</div>
+    </div>
+
+    <div class="team-grid">
+
+      <div class="team-card">
+        <div class="team-head">
+          <div class="team-id">
+            <div class="team-avatar">&#129399;</div>
+            <div>
+              <div class="team-name">Srijan Chattoraj</div>
+              <div class="team-role">Team Lead / App Dev</div>
+            </div>
+          </div>
+          <span class="lvl-badge yellow">LVL 99</span>
+        </div>
+        <div class="team-title-row blue">&#10007; CORE ARCHITECT</div>
+        <div class="team-specialty">&#8226; Specialty: System Core Orchestration &amp; Terminal Verification Engine</div>
+        <div class="team-stats">
+          <div class="team-stat"><div class="ts-label">LEADERSH</div><div class="ts-val">99%</div></div>
+          <div class="team-stat"><div class="ts-label">CORE ENG</div><div class="ts-val">98%</div></div>
+          <div class="team-stat"><div class="ts-label">LOGIC FL</div><div class="ts-val">96%</div></div>
+        </div>
+        <div class="team-quote">"Building bridges between raw terminal logic and arcade engagement."</div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-head">
+          <div class="team-id">
+            <div class="team-avatar">&#127912;</div>
+            <div>
+              <div class="team-name">Daniel Marcelo</div>
+              <div class="team-role">Design Lead / App Dev</div>
+            </div>
+          </div>
+          <span class="lvl-badge green">LVL 99</span>
+        </div>
+        <div class="team-title-row green">&#10007; PIXEL ALCHEMIST</div>
+        <div class="team-specialty">&#8226; Specialty: Retro CRT Aesthetic, Fluid 60 FPS Canvases &amp; Interactive UX</div>
+        <div class="team-stats">
+          <div class="team-stat"><div class="ts-label">UI/UX DE</div><div class="ts-val">99%</div></div>
+          <div class="team-stat"><div class="ts-label">CRT SHAD</div><div class="ts-val">98%</div></div>
+          <div class="team-stat"><div class="ts-label">ANIMATIO</div><div class="ts-val">95%</div></div>
+        </div>
+        <div class="team-quote">"Every pixel tells a story; every scanline brings back the arcade magic."</div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-head">
+          <div class="team-id">
+            <div class="team-avatar">&#9889;</div>
+            <div>
+              <div class="team-name">Shreshth Kumar Singh</div>
+              <div class="team-role">Web Dev</div>
+            </div>
+          </div>
+          <span class="lvl-badge blue">LVL 95</span>
+        </div>
+        <div class="team-title-row purple">&#10007; CYBER NETRUNNER</div>
+        <div class="team-specialty">&#8226; Specialty: Web Integration Architecture, Streaming Pipelines &amp; Network Synapse</div>
+        <div class="team-stats">
+          <div class="team-stat"><div class="ts-label">WEB SYST</div><div class="ts-val">96%</div></div>
+          <div class="team-stat"><div class="ts-label">API NEXU</div><div class="ts-val">94%</div></div>
+          <div class="team-stat"><div class="ts-label">CLOUD OP</div><div class="ts-val">93%</div></div>
+        </div>
+        <div class="team-quote">"Connecting players and curriculum across the global cyberspace grid."</div>
+      </div>
+
+      <div class="team-card">
+        <div class="team-head">
+          <div class="team-id">
+            <div class="team-avatar">&#129504;</div>
+            <div>
+              <div class="team-name">Anoushka Chaturvedi</div>
+              <div class="team-role">Web Dev</div>
+            </div>
+          </div>
+          <span class="lvl-badge pink">LVL 95</span>
+        </div>
+        <div class="team-title-row pink">&#10007; PORTAL ENGINEER</div>
+        <div class="team-specialty">&#8226; Specialty: Responsive Portal Design, Web Experience &amp; Component Flow</div>
+        <div class="team-stats">
+          <div class="team-stat"><div class="ts-label">FRONTEND</div><div class="ts-val">96%</div></div>
+          <div class="team-stat"><div class="ts-label">WEB UI F</div><div class="ts-val">95%</div></div>
+          <div class="team-stat"><div class="ts-label">PRECISIO</div><div class="ts-val">94%</div></div>
+        </div>
+        <div class="team-quote">"Designing intuitive interfaces where code meets effortless interaction."</div>
+      </div>
+
+    </div>
+
+    <div class="manifesto-bar">
+      <strong>&#127942; BEACON ARCADE MANIFESTO:</strong>
+      <span>Empowering code mastery through gamified retro terminal exploration.</span>
+    </div>
+  </div>
+
+  <!-- ============ FAQ PANEL ============ -->
+  <div class="hub-panel" id="panel-faq">
+
+    <div class="faq-filter-row">
+      <button class="faq-cat active" data-cat="all" type="button">ALL</button>
+      <button class="faq-cat" data-cat="quests" type="button">QUESTS &amp; XP</button>
+      <button class="faq-cat" data-cat="terminal" type="button">TERMINAL ENGINE</button>
+      <button class="faq-cat" data-cat="theater" type="button">VIDEO THEATER</button>
+      <button class="faq-cat" data-cat="feedback" type="button">FEEDBACK</button>
+      <input class="faq-search" id="faqSearch" type="text" placeholder="&#128269; Search..." />
+    </div>
+
+    <div class="faq-list" id="faqList">
+
+      <div class="faq-item" data-cat="quests">
+        <div class="faq-question">
+          <span class="fq-icon">&#9876;&#65039;</span>
+          <span class="fq-text">How do I earn XP, level up, and unlock arcade badges?</span>
+          <span class="fq-toggle">&#9660; EXPAND</span>
+        </div>
+        <div class="faq-answer">
+          You earn XP by completing quest lessons (+10 XP each, once per lesson), watching Video Theater lessons and marking them complete (+50 to +150 XP depending on the video), and transmitting feedback through this Hub (+25 XP every time). Badges and levels are shown on your Profile page — right now badge unlocking is still a placeholder, so the badge slots you see there are a preview of what's coming rather than fully wired up yet.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="terminal">
+        <div class="faq-question">
+          <span class="fq-icon">&#9889;</span>
+          <span class="fq-text">How does the Real Execution Terminal verify my code?</span>
+          <span class="fq-toggle">&#9660; EXPAND</span>
+        </div>
+        <div class="faq-answer">
+          For Python, your code runs for real in your browser through Pyodide, an actual Python interpreter — the output you see is genuine. For Java and C++, there's no full compiler running in the browser, so a lightweight custom Beacon interpreter checks the print statements, variables, and math your code produces against the expected output. It covers everything taught in the current lessons, but it isn't a real Java or C++ compiler.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="theater">
+        <div class="faq-question">
+          <span class="fq-icon">&#127916;</span>
+          <span class="fq-text">Can I practice coding while watching the video lessons?</span>
+          <span class="fq-toggle">&#9660; EXPAND</span>
+        </div>
+        <div class="faq-answer">
+          Not yet — the Video Theater and the coding Quest terminal are currently separate experiences. Watch a video, then head to the matching language quest to practice what you learned in the terminal. A combined watch-and-code view may come later.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="quests">
+        <div class="faq-question">
+          <span class="fq-icon">&#127942;</span>
+          <span class="fq-text">How do consecutive streaks and login bonuses work?</span>
+          <span class="fq-toggle">&#9660; EXPAND</span>
+        </div>
+        <div class="faq-answer">
+          Honestly, right now the streak counter shown in the HUD bar is a placeholder and doesn't yet track real day-to-day logins automatically. Daily streak tracking and login bonuses are planned but not live in this build yet.
+        </div>
+      </div>
+
+      <div class="faq-item" data-cat="terminal">
+        <div class="faq-question">
+          <span class="fq-icon">&#9881;&#65039;</span>
+          <span class="fq-text">What programming languages and tiers are currently supported?</span>
+          <span class="fq-toggle">&#9660; EXPAND</span>
+        </div>
+        <div class="faq-answer">
+          Beacon currently supports Python, Java, and C++, each with a "Basics &amp; Input/O" lesson section covering ten levels from Hello World through combined variable output. Difficulty tiers are Beginner, Intermediate, and Expert, chosen when you sign up.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ FEEDBACK PANEL ============ -->
+  <div class="hub-panel" id="panel-feedback">
+
+    <div class="uplink-box">
+      <div class="uplink-title">TRANSMISSION UPLINK: <span id="uplinkName">PLAYER</span> (CLASS <span id="uplinkClass">--</span>)</div>
+      <div class="uplink-sub">Transmit your feedback, bug reports, and quest ideas directly to the Dev Guild. Each submission awards +25 XP to your account!</div>
+    </div>
+
+    <form id="feedbackForm">
+
+      <div class="fb-section">
+        <div class="fb-label">1. Rate Your Arcade Experience:</div>
+        <div class="rating-row" id="ratingRow">
+          <button type="button" class="rating-btn" data-val="1">&#9679; 1 (ROOKIE)</button>
+          <button type="button" class="rating-btn" data-val="2">&#9679; 2 (DECENT)</button>
+          <button type="button" class="rating-btn" data-val="3">&#9679; 3 (SOLID)</button>
+          <button type="button" class="rating-btn" data-val="4">&#9679; 4 (HEROIC)</button>
+          <button type="button" class="rating-btn" data-val="5">&#9679; 5 (LEGENDARY)</button>
+        </div>
+        <div class="rating-feedback" id="ratingFeedback" style="display:none;"></div>
+      </div>
+
+      <div class="fb-section">
+        <div class="fb-label">2. Transmission Category:</div>
+        <div class="category-row" id="categoryRow">
+          <button type="button" class="category-btn active" data-cat="praise">&#9733; General Praise</button>
+          <button type="button" class="category-btn" data-cat="bug">&#128027; Bug Report</button>
+          <button type="button" class="category-btn" data-cat="feature">&#9889; Feature Idea</button>
+          <button type="button" class="category-btn" data-cat="quest">&#10067; Quest Suggestion</button>
+        </div>
+      </div>
+
+      <div class="fb-section">
+        <div class="fb-label">3. Transmission Log &amp; Comments:</div>
+        <textarea class="fb-textarea" id="fbComments" placeholder="Tell the Guild what's on your mind..."></textarea>
+      </div>
+
+      <div class="fb-submit-row">
+        <button type="submit" class="transmit-btn">Transmit Log to Guild &#9658; (+25 XP)</button>
+        <span class="xp-bonus-note">&#127942; XP Bonus: +25 XP on send</span>
+      </div>
+
+      <div class="fb-success" id="fbSuccess">&#10003; Transmission received — the Guild thanks you! +25 XP added.</div>
+    </form>
+  </div>
+
+</div>
+
+<script src="hub.js"></script>
+</body>
+</html>

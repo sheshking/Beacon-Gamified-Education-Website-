@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beacon — Arcade Video Theater</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="arcade-bg.css" />
+<link rel="stylesheet" href="theater.css" />
+</head>
+<body>
+<div class="arcade-backdrop">
+  <div class="stars-small"></div>
+  <div class="stars-big"></div>
+  <div class="horizon-glow"></div>
+  <div class="grid-floor"></div>
+  <span class="sprite s1">&#11088;</span>
+  <span class="sprite s2">&#128126;</span>
+  <span class="sprite s3">&#127918;</span>
+  <span class="sprite s4">&#128190;</span>
+  <span class="sprite s5">&#127918;</span>
+  <span class="sprite s6">&#11088;</span>
+</div>
+
+<div class="theater-shell pixel-frame">
+
+  <div class="top-row">
+    <a href="home.html" class="back-btn">&#9668; Select Quest</a>
+    <div class="theater-title">[ ARCADE VIDEO THEATER ]</div>
+  </div>
+
+  <div class="filter-row">
+    <div class="lang-tabs" id="langTabs"></div>
+    <div class="diff-tabs" id="diffTabs"></div>
+  </div>
+
+  <div class="theater-layout">
+
+    <div class="video-list" id="videoList"></div>
+
+    <div class="monitor-panel">
+      <div class="monitor-head">
+        <span>&#128250; CRT ARCADE MONITOR — 1080p</span>
+        <span class="feed">FEED: <span id="feedName">—</span></span>
+      </div>
+
+      <div class="screen" id="screen">
+        <div class="screen-overlay" id="screenOverlay">
+          <div class="big-play">&#9658;</div>
+          <div class="launch-text">[ CLICK TO LAUNCH STREAM IN BROWSER ]</div>
+        </div>
+        <div class="screen-scanlines"></div>
+      </div>
+
+      <div class="action-row">
+        <a class="action-btn watch" id="watchBtn" href="#" target="_blank" rel="noopener">&#9658; Watch on YouTube</a>
+        <button class="action-btn complete" id="completeBtn" type="button">&#10003; Mark Complete (+XP)</button>
+        <button class="action-btn" id="copyBtn" type="button">&#128279; Copy URL</button>
+      </div>
+
+      <div class="detail-title" id="detailTitle"></div>
+      <div class="detail-desc" id="detailDesc"></div>
+
+      <div class="detail-tabs">
+        <button class="detail-tab active" data-tab="timestamps">Timestamps</button>
+      </div>
+      <div class="timestamp-list" id="timestampList"></div>
+
+      <div class="fallback-note" id="fallbackNote" hidden>
+        This video's exact link couldn't be verified, so this card opens a YouTube search for it instead of playing inline — safer than guessing a video ID that might be wrong.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="theater-data.js"></script>
+<script src="theater.js"></script>
+</body>
+</html>

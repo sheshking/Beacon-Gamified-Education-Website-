@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beacon — Settings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="arcade-bg.css" />
+<link rel="stylesheet" href="settings.css" />
+</head>
+<body>
+<div class="arcade-backdrop">
+  <div class="stars-small"></div>
+  <div class="stars-big"></div>
+  <div class="horizon-glow"></div>
+  <div class="grid-floor"></div>
+  <span class="sprite s1">&#11088;</span>
+  <span class="sprite s2">&#128126;</span>
+  <span class="sprite s3">&#127918;</span>
+  <span class="sprite s4">&#128190;</span>
+  <span class="sprite s5">&#127918;</span>
+  <span class="sprite s6">&#11088;</span>
+</div>
+
+<div class="settings-shell pixel-frame">
+
+  <div class="hud-bar">
+    <span class="player" id="hudPlayer">PLAYER 1</span>
+    <span class="streak">&#128293; <span id="streakVal">0</span> DAY STREAK</span>
+    <span class="xp">XP <span id="hudXp">000</span>&nbsp;/&nbsp;1000</span>
+  </div>
+
+  <div class="settings-nav">
+    <a href="home.html" class="back-btn">&#9668; Back</a>
+    <div class="settings-title">[ SETTINGS ]</div>
+  </div>
+  <div class="settings-sub">Tune how Beacon pushes you — and what it remembers for you.</div>
+
+  <div class="diag-box">
+    <div class="diag-line">&gt; running diagnostics...</div>
+    <div class="diag-headline">2 SIGNALS FADING.</div>
+    <div class="diag-detail">C++ Pointers ghosted for 9 days straight. certified undefined-behavior arc. retention: 42%.</div>
+  </div>
+
+  <div class="section-label">General</div>
+
+  <div class="setting-row">
+    <div class="setting-info">
+      <div class="si-title">&#128266; Sound Effects</div>
+      <div class="si-desc">Retro arcade audio on quests and streak multipliers.</div>
+      <div class="si-note">Mutes click, hover, success, error and achievement sounds site-wide.</div>
+    </div>
+    <div class="toggle on" id="toggleSound"><div class="knob"></div></div>
+  </div>
+
+  <div class="setting-row">
+    <div class="setting-info">
+      <div class="si-title">&#127769; Dark Mode</div>
+      <div class="si-desc">Keep Beacon's dark arcade aesthetic enabled.</div>
+    </div>
+    <div class="toggle on" id="toggleDark"><div class="knob"></div></div>
+  </div>
+
+  <div class="setting-row">
+    <div class="setting-info">
+      <div class="si-title">&#127918; Difficulty Level</div>
+      <div class="si-desc">Current learning tier: Beginner, Intermediate, or Advanced.</div>
+    </div>
+    <button class="cycle-btn" id="difficultyBtn" type="button">Intermediate &#9656;</button>
+  </div>
+
+  <div class="setting-row">
+    <div class="setting-info">
+      <div class="si-title">&#9993;&#65039; Email Notifications</div>
+      <div class="si-desc">Weekly progress reports and streak-loss reminders.</div>
+      <div class="si-note">Saved as a preference — no email system is connected yet.</div>
+    </div>
+    <div class="toggle" id="toggleEmail"><div class="knob"></div></div>
+  </div>
+
+  <div class="section-label beam">Full Beam</div>
+
+  <div class="beam-card">
+    <div class="beam-head">
+      <div class="beam-info">
+        <div class="bi-title">&#128171; Fog Zones <span class="beam-pill">FULL BEAM</span></div>
+        <div class="bi-desc">Resurfaces the exact concept you're about to forget — right before it becomes "never met her."</div>
+        <div class="beam-preview" data-preview="fog">&#128064; tap to preview</div>
+      </div>
+      <div class="beam-control">
+        <div class="toggle locked" data-locked="fog"><div class="knob"></div></div>
+      </div>
+    </div>
+    <div class="beam-tooltip" id="tooltip-fog">&#128274; Full Beam feature — not available in this build yet. This toggle is a preview of what's coming.</div>
+  </div>
+
+  <div class="beam-card">
+    <div class="beam-head">
+      <div class="beam-info">
+        <div class="bi-title">&#128225; Signal Strength Map <span class="beam-pill">FULL BEAM</span></div>
+        <div class="bi-desc">See which topics are fading in real time, per language.</div>
+      </div>
+      <div class="beam-control">
+        <div class="progress-track"><div class="progress-fill"></div></div>
+        <div class="progress-label">42% · not it</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="beam-card">
+    <div class="beam-head">
+      <div class="beam-info">
+        <div class="bi-title">&#10052;&#65039; Signal Freeze</div>
+        <div class="bi-desc">Protect your streak on a day you can't show up.</div>
+      </div>
+      <div class="beam-control">
+        <div class="freeze-box" id="freezeBox">
+          <div class="fb-count" id="freezeCount">1 / 1 left</div>
+          <div class="fb-sub">unlimited on Full Beam</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="beam-card">
+    <div class="beam-head">
+      <div class="beam-info">
+        <div class="bi-title">&#128101; Mentor Digest <span class="beam-pill">FULL BEAM</span></div>
+        <div class="bi-desc">Weekly report to a parent or teacher — so the effort shows up, not just the marks.</div>
+        <div class="beam-preview" data-preview="mentor">&#128064; tap to preview</div>
+      </div>
+      <div class="beam-control">
+        <div class="toggle locked" data-locked="mentor"><div class="knob"></div></div>
+      </div>
+    </div>
+    <div class="beam-tooltip" id="tooltip-mentor">&#128274; Full Beam feature — not available in this build yet. This toggle is a preview of what's coming.</div>
+  </div>
+
+  <div class="beam-card">
+    <div class="beam-head">
+      <div class="beam-info">
+        <div class="bi-title">&#128241; Adaptive Sensitivity <span class="beam-pill">FULL BEAM</span></div>
+        <div class="bi-desc">You hold the wheel, we aim the light. basically a skill-issue slider, except this one's calibrated on purpose.</div>
+      </div>
+      <div class="beam-control">
+        <input class="slider-locked" type="range" min="0" max="100" value="25" disabled />
+      </div>
+    </div>
+  </div>
+
+  <div class="promo-panel">
+    <div class="promo-tag">[ THIS AIN'T A BYJU'S AD, PROMISE ]</div>
+    <div class="promo-headline">same beacon. way less fog. certified glow-up.</div>
+    <div class="promo-body">
+      Fog Zones, Signal Freeze, the whole panel above — <span class="hl-green">unlocked, not just unlit</span> (we saw you tap the lock icon twice). Your streak's already carrying the whole squad. This just stops it from flatlining the one Tuesday you forget to open the app.
+    </div>
+
+    <div class="plan-grid" id="planGrid">
+      <div class="plan-card selected" data-plan="yearly">
+        <span class="plan-badge">BEST VALUE</span>
+        <div class="plan-label">YEARLY</div>
+        <div class="plan-price">&#8377;799<span>/yr</span></div>
+        <div class="plan-sub">&#8377;66/mo</div>
+      </div>
+      <div class="plan-card" data-plan="monthly">
+        <div class="plan-label">MONTHLY</div>
+        <div class="plan-price">&#8377;99<span>/mo</span></div>
+        <div class="plan-sub">no lock-in</div>
+      </div>
+      <div class="plan-card" data-plan="crew">
+        <div class="plan-label">CREW &times;4</div>
+        <div class="plan-price">&#8377;249<span>/mo</span></div>
+        <div class="plan-sub">&#8377;62 each</div>
+      </div>
+    </div>
+
+    <button class="promo-cta" id="promoCta" type="button">Turn On Full Beam &#8594;</button>
+    <div class="promo-fineprint">cheaper than your last Zomato order. glows brighter than your router's blinking lights, fr.</div>
+    <div class="promo-social"><span class="dot"></span> 4,900+ streaks staying lit on Full Beam rn</div>
+
+    <div class="crew-note">
+      &#128203; <strong>Crew</strong> = the exact move you already pull for Netflix and Spotify. One beacon, four logins, everyone's streak stays lit — even the friend who never pays for anything.
+    </div>
+
+    <div class="promo-result" id="promoResult"></div>
+  </div>
+
+  <button class="save-btn" id="saveBtn" type="button">Save Changes</button>
+  <div class="save-confirm" id="saveConfirm">&#10003; Settings saved.</div>
+
+</div>
+
+<script src="settings.js"></script>
+</body>
+</html>

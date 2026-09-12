@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Beacon — Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/devicon/2.17.0/devicon.min.css">
+<link rel="stylesheet" href="arcade-bg.css" />
+<link rel="stylesheet" href="home.css" />
+</head>
+<!--
+  =========================================================
+  DROP-IN QUEST LOADER — copy everything below and paste it
+  right before </body> in your home.html. That's it.
+  Nothing else needs to change — no editing your buttons,
+  no editing your existing CSS. It finds your "Start Quest"
+  buttons automatically and figures out the language from
+  the text on the card.
+  =========================================================
+-->
+<script>
+(function () {
+  // ---- 1. Inject the CSS ----
+  const style = document.createElement('style');
+  style.textContent = `
+    .quest-loader {
+      position: fixed; inset: 0;
+      background: radial-gradient(circle at center, #0d1229 0%, #05070f 100%);
+      display: none; align-items: center; justify-content: center;
+      z-index: 999999; opacity: 0; transition: opacity 0.25s ease;
+    }
+    .quest-loader.active { display: flex; opacity: 1; }
+    .quest-loader-inner { text-align: center; animation: questFadeUp 0.4s ease; }
+    @keyframes questFadeUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .quest-logo {
+      width: 110px; height: 110px; margin: 0 auto 24px;
+      display: flex; align-items: center; justify-content: center; font-size: 56px;
+      border: 2px solid rgba(255,255,255,0.15); border-radius: 16px;
+      background: rgba(255,255,255,0.03); box-shadow: 0 0 25px rgba(80,120,255,0.35);
+      animation: questPulse 1.1s ease-in-out infinite;
+    }
+    @keyframes questPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(80,120,255,0.3); }
+      50% { transform: scale(1.08); box-shadow: 0 0 35px rgba(80,120,255,0.6); }
+    }
+    .quest-loading-text {
+      font-family: 'Press Start 2P', monospace; color: #ffd54a; font-size: 20px;
+      letter-spacing: 1px; margin: 0 0 8px; text-shadow: 0 0 12px rgba(255,213,74,0.5);
+    }
+    .quest-dots span { animation: questDotBlink 1.4s infinite; opacity: 0; }
+    .quest-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .quest-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes questDotBlink { 0%, 20% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+    .quest-lang-label {
+      color: #4ade9a; font-family: 'Press Start 2P', monospace; font-size: 11px;
+      margin-bottom: 28px; letter-spacing: 0.5px;
+    }
+    .quest-progress-track {
+      width: 260px; height: 10px; margin: 0 auto;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px; overflow: hidden;
+    }
+    .quest-progress-bar {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, #6c8cff, #4ade9a);
+      border-radius: 6px; transition: width 1.2s linear;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ---- 2. Inject the overlay HTML ----
+  const overlay = document.createElement('div');
+  overlay.id = 'questLoader';
+  overlay.className = 'quest-loader';
+  overlay.innerHTML = `
+    <div class="quest-loader-inner">
+      <div id="questLogo" class="quest-logo">🎮</div>
+      <h2 class="quest-loading-text">LOADING QUEST<span class="quest-dots"><span>.</span><span>.</span><span>.</span></span></h2>
+      <p id="questLangLabel" class="quest-lang-label">Preparing your journey</p>
+      <div class="quest-progress-track"><div id="questProgressBar" class="quest-progress-bar"></div></div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+
+  // ---- 3. Language detection data ----
+  const langMap = [
+    { keywords: ['c++', 'cpp'], icon: '🔵', label: 'Loading C++ — System Speed & Performance' },
+    { keywords: ['java'],       icon: '☕', label: 'Loading Java — Enterprise Architecture & Apps' },
+    { keywords: ['python'],     icon: '🐍', label: 'Loading Python — AI, Automation & Data Science' }
+  ];
+
+  function detectLang(cardText) {
+    const t = cardText.toLowerCase();
+    for (const entry of langMap) {
+      if (entry.keywords.some(k => t.includes(k))) return entry;
+    }
+    return { icon: '🎮', label: 'Loading Quest' };
+  }
+
+  // ---- 4. Auto-wire every "Start Quest" button ----
+  function findStartQuestButtons() {
+    const all = document.querySelectorAll('button, a');
+    return Array.from(all).filter(el =>
+      el.textContent.trim().toLowerCase().includes('start quest')
+    );
+  }
+
+  function showLoader(cardEl, href) {
+    const logo = document.getElementById('questLogo');
+    const label = document.getElementById('questLangLabel');
+    const bar = document.getElementById('questProgressBar');
+    const data = detectLang(cardEl ? cardEl.textContent : '');
+
+    logo.textContent = data.icon;
+    label.textContent = data.label;
+    bar.style.width = '0%';
+    overlay.classList.add('active');
+    requestAnimationFrame(() => { bar.style.width = '100%'; });
+
+    setTimeout(() => {
+      if (href && href !== '#') {
+        window.location.href = href;
+      } else {
+        overlay.classList.remove('active');
+      }
+    }, 1400);
+  }
+
+  function wireButtons() {
+    findStartQuestButtons().forEach(btn => {
+      if (btn.dataset.questWired) return; // avoid double-wiring
+      btn.dataset.questWired = 'true';
+      btn.addEventListener('click', function (e) {
+        // Find the closest card-like container for language detection
+        const card = btn.closest('div') || btn.parentElement || btn;
+        const href = btn.getAttribute('href'); // if it's an <a>, use its href after the animation
+        if (href && href !== '#') e.preventDefault();
+        showLoader(card, href);
+      });
+    });
+  }
+
+  // Run once DOM is ready, and re-run if content loads dynamically
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wireButtons);
+  } else {
+    wireButtons();
+  }
+  // In case your cards render after a delay (e.g. from JS), re-check every second for 10s
+  let tries = 0;
+  const interval = setInterval(() => {
+    wireButtons();
+    tries++;
+    if (tries > 10) clearInterval(interval);
+  }, 1000);
+})();
+</script>
+<body>
+<div class="arcade-backdrop">
+  <div class="stars-small"></div>
+  <div class="stars-big"></div>
+  <div class="horizon-glow"></div>
+  <div class="grid-floor"></div>
+  <span class="sprite s1">&#11088;</span>
+  <span class="sprite s2">&#128126;</span>
+  <span class="sprite s3">&#127918;</span>
+  <span class="sprite s4">&#128190;</span>
+  <span class="sprite s5">&#127918;</span>
+  <span class="sprite s6">&#11088;</span>
+</div>
+
+<div class="dash-shell pixel-frame">
+
+  <div class="hud-bar">
+    <span class="player">PLAYER 1</span>
+    <span class="streak">&#128293; 0 DAY STREAK</span>
+    <span class="xp">XP <span id="hudXp">000</span>&nbsp;/&nbsp;1000</span>
+  </div>
+
+  <div class="nav-row">
+    <nav class="nav-links">
+      <a href="home.html" class="active">&#127968; Home</a>
+      <a href="profile.html">&#128100; Profile</a>
+      <a href="theater.html">&#127909; Video Theater</a>
+      <a href="hub.html">&#128737;&#65039; Guild &amp; FAQ</a>
+      <a href="settings.html">&#9881;&#65039; Settings</a>
+      <a href="index.html" class="logout">&#9211; Log Out</a>
+    </nav>
+    <a href="profile.html" class="avatar-badge">
+      <span class="avatar-icon">&#128100;</span>
+      <span class="avatar-name">PLAYER</span>
+    </a>
+  </div>
+
+  <div class="dash-heading">
+    <h1>What do you want to<br />learn today?</h1>
+    <div class="sub">[ PICK YOUR QUEST LANGUAGE ]</div>
+  </div>
+
+  <div class="quest-grid">
+
+    <div class="quest-card pixel-frame-sm" data-lang="cpp">
+      <div class="quest-icon"><i class="devicon-cplusplus-plain colored"></i></div>
+      <h3>C++</h3>
+      <p>System speed &amp; performance</p>
+      <button class="quest-btn" type="button" data-href="course-cpp.html">
+        Start Quest &#9658;
+      </button>
+      <button class="boss-btn" type="button" data-href="course-cpp.html?boss=1">
+        &#128128; Boss Fight
+      </button>
+    </div>
+
+    <div class="quest-card pixel-frame-sm" data-lang="java">
+      <div class="quest-icon"><i class="devicon-java-plain colored"></i></div>
+      <h3>Java</h3>
+      <p>Enterprise architecture &amp; apps</p>
+      <button class="quest-btn" type="button" data-href="course-java.html">
+        Start Quest &#9658;
+      </button>
+      <button class="boss-btn" type="button" data-href="course-java.html?boss=1">
+        &#128128; Boss Fight
+      </button>
+    </div>
+
+    <div class="quest-card pixel-frame-sm" data-lang="python">
+      <div class="quest-icon"><i class="devicon-python-plain colored"></i></div>
+      <h3>Python</h3>
+      <p>AI, automation &amp; data science</p>
+      <button class="quest-btn" type="button" data-href="course-python.html">
+        Start Quest &#9658;
+      </button>
+      <button class="boss-btn" type="button" data-href="course-python.html?boss=1">
+        &#128128; Boss Fight
+      </button>
+    </div>
+
+  </div>
+
+  <div class="tip-bar">
+    <div class="tip-label">&#127942; HERO TIP:</div>
+    <div class="tip-text" id="tipText">If you're a beginner, try Python first to start earning XP immediately!</div>
+  </div>
+
+</div>
+
+<script src="sfx.js"></script>
+<script src="home.js"></script>
+</body>
+</html>

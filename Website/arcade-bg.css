@@ -1,0 +1,110 @@
+/* ============================================
+   BEACON — shared retro-arcade interactive background
+   Used behind every inner page (home, profile, theater, course-*).
+   ============================================ */
+
+.arcade-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(180deg, #090b1d 0%, #10123a 45%, #170f3a 75%, #1d1140 100%);
+}
+
+/* ---------- starfield (two depths for parallax) ---------- */
+
+.arcade-backdrop .stars-small,
+.arcade-backdrop .stars-big {
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 2px;
+  border-radius: 50%;
+  background: transparent;
+}
+.arcade-backdrop .stars-small {
+  box-shadow: 1309px 228px #fff, 51px 563px #fff, 501px 457px #fff, 285px 209px #fff, 1385px 1116px #fff, 178px 1209px #fff, 864px 65px #fff, 61px 191px #fff, 447px 476px #fff, 1034px 1232px #fff, 54px 1149px #fff, 407px 1116px #fff, 859px 451px #fff, 919px 1206px #fff, 569px 13px #fff, 1554px 326px #fff, 1429px 865px #fff, 696px 569px #fff, 318px 440px #fff, 1563px 689px #fff, 209px 189px #fff, 778px 198px #fff, 735px 704px #fff, 1236px 541px #fff, 1652px 88px #fff, 1494px 940px #fff, 1098px 255px #fff, 775px 161px #fff, 1130px 600px #fff, 1698px 1287px #fff, 1266px 740px #fff, 1182px 393px #fff, 1442px 142px #fff, 93px 466px #fff, 1583px 592px #fff, 163px 476px #fff, 1774px 206px #fff, 778px 569px #fff, 928px 747px #fff, 333px 758px #fff, 727px 429px #fff, 1372px 546px #fff, 1437px 146px #fff, 1247px 1300px #fff, 350px 1093px #fff, 1493px 501px #fff, 334px 946px #fff, 777px 552px #fff, 1310px 1140px #fff, 449px 664px #fff, 1726px 114px #fff, 469px 65px #fff, 1648px 646px #fff, 821px 548px #fff, 135px 432px #fff, 1161px 644px #fff, 435px 1022px #fff, 810px 939px #fff, 292px 542px #fff, 285px 505px #fff, 1525px 1149px #fff, 1103px 538px #fff, 1529px 1197px #fff, 877px 1195px #fff, 817px 741px #fff, 449px 283px #fff, 1043px 1010px #fff, 186px 96px #fff, 1763px 224px #fff, 313px 1285px #fff, 327px 864px #fff, 1221px 130px #fff, 788px 781px #fff, 1220px 958px #fff, 1083px 514px #fff, 1133px 23px #fff, 1393px 234px #fff, 1396px 1099px #fff, 1537px 546px #fff, 1574px 696px #fff, 228px 601px #fff, 890px 323px #fff, 929px 6px #fff, 1478px 539px #fff, 1025px 365px #fff, 1039px 217px #fff, 1782px 1280px #fff, 611px 1039px #fff, 1247px 407px #fff, 313px 765px #fff, 1561px 330px #fff, 1104px 1086px #fff, 1px 1226px #fff, 663px 1000px #fff, 39px 229px #fff, 743px 629px #fff, 490px 118px #fff, 493px 1161px #fff, 161px 175px #fff, 1498px 995px #fff, 1671px 141px #fff, 1557px 1090px #fff, 1568px 257px #fff, 262px 973px #fff, 1125px 338px #fff, 542px 1080px #fff, 1786px 1242px #fff, 866px 433px #fff, 1104px 411px #fff, 1460px 638px #fff, 817px 764px #fff, 897px 1059px #fff, 924px 247px #fff, 507px 460px #fff, 131px 692px #fff, 43px 1204px #fff, 1134px 471px #fff, 1205px 451px #fff, 14px 145px #fff, 1449px 1292px #fff, 120px 468px #fff, 138px 64px #fff, 1760px 676px #fff, 145px 1052px #fff, 487px 570px #fff, 1370px 994px #fff, 438px 1104px #fff, 270px 1169px #fff, 1180px 968px #fff, 497px 968px #fff, 1653px 833px #fff, 389px 193px #fff, 198px 882px #fff, 725px 867px #fff, 841px 956px #fff, 1769px 110px #fff, 1379px 201px #fff, 124px 824px #fff, 1491px 694px #fff, 1639px 223px #fff;
+  animation: starDriftSmall 90s linear infinite, starTwinkle 5s ease-in-out infinite alternate;
+  opacity: 0.55;
+}
+.arcade-backdrop .stars-big {
+  width: 2.5px; height: 2.5px;
+  box-shadow: 509px 392px #fff, 389px 1098px #fff, 918px 287px #fff, 864px 375px #fff, 570px 947px #fff, 511px 154px #fff, 907px 1127px #fff, 200px 103px #fff, 1335px 1107px #fff, 1712px 30px #fff, 191px 484px #fff, 340px 832px #fff, 994px 985px #fff, 437px 821px #fff, 120px 337px #fff, 776px 4px #fff, 799px 543px #fff, 1605px 931px #fff, 584px 866px #fff, 1426px 1138px #fff, 1355px 996px #fff, 317px 388px #fff, 607px 445px #fff, 119px 1186px #fff, 1506px 1110px #fff, 124px 642px #fff, 117px 102px #fff, 1196px 976px #fff, 1029px 1087px #fff, 322px 116px #fff, 1040px 164px #fff, 1743px 380px #fff, 140px 1218px #fff, 139px 481px #fff, 826px 245px #fff, 1166px 504px #fff, 1185px 1217px #fff, 81px 1268px #fff, 167px 858px #fff, 1346px 1195px #fff, 1157px 1070px #fff, 647px 534px #fff, 418px 643px #fff, 488px 543px #fff, 810px 268px #fff;
+  animation: starDriftBig 140s linear infinite, starTwinkle 4s ease-in-out infinite alternate-reverse;
+  opacity: 0.75;
+}
+@keyframes starDriftSmall {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-300px, 200px); }
+}
+@keyframes starDriftBig {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(200px, -260px); }
+}
+@keyframes starTwinkle {
+  from { opacity: 0.35; }
+  to   { opacity: 0.9; }
+}
+
+/* ---------- synthwave horizon glow ---------- */
+
+.arcade-backdrop .horizon-glow {
+  position: absolute;
+  left: 50%; bottom: 14%;
+  width: 900px; height: 900px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255,61,128,0.20) 0%, rgba(120,60,200,0.12) 35%, transparent 70%);
+  filter: blur(2px);
+}
+
+/* ---------- scrolling grid floor ---------- */
+
+.arcade-backdrop .grid-floor {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: 0;
+  height: 46%;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(120,200,255,0.16) 0px, rgba(120,200,255,0.16) 1px, transparent 1px, transparent 64px),
+    repeating-linear-gradient(0deg, rgba(120,200,255,0.16) 0px, rgba(120,200,255,0.16) 1px, transparent 1px, transparent 40px);
+  transform: perspective(320px) rotateX(62deg);
+  transform-origin: bottom;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.9) 35%, #000 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.9) 35%, #000 100%);
+  animation: gridScroll 6s linear infinite;
+}
+@keyframes gridScroll {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 0 40px, 0 40px; }
+}
+
+/* ---------- drifting pixel sprites ---------- */
+
+.arcade-backdrop .sprite {
+  position: absolute;
+  font-size: 30px;
+  filter: drop-shadow(0 0 8px currentColor);
+  opacity: 0.28;
+  animation: spriteFloat 11s ease-in-out infinite;
+}
+.sprite.s1 { top: 10%;  left: 6%;   color: #ffcf4d; animation-duration: 12s; }
+.sprite.s2 { top: 68%;  left: 4%;   color: #35e0ff; animation-duration: 9s;  animation-delay: -2s; }
+.sprite.s3 { top: 20%;  right: 7%;  color: #ff3864; animation-duration: 13s; animation-delay: -4s; }
+.sprite.s4 { top: 78%;  right: 5%;  color: #22d492; animation-duration: 10s; animation-delay: -1s; }
+.sprite.s5 { top: 45%;  left: 2%;   color: #7c86e0; animation-duration: 14s; animation-delay: -6s; font-size:24px; }
+.sprite.s6 { top: 40%;  right: 3%;  color: #ffcf4d; animation-duration: 11s; animation-delay: -3s; font-size:24px; }
+
+@keyframes spriteFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50%      { transform: translate(10px, -18px) rotate(8deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arcade-backdrop * { animation: none !important; }
+}
+
+@media (max-width: 700px) {
+  .arcade-backdrop .sprite { font-size: 22px; opacity: 0.2; }
+  .arcade-backdrop .horizon-glow { width: 600px; height: 600px; }
+}

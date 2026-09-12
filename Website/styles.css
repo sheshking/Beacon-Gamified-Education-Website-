@@ -1,0 +1,454 @@
+/* ============================================
+   BEACON — retro arcade sign-up page
+   ============================================ */
+
+:root{
+  --bg-deep:#1c0f2e;
+  --bg-deep-2:#2c1240;
+  --bg-deep-3:#150a22;
+  --card-navy:#131a3a;
+  --hud-navy:#0d1330;
+  --border-blue:#3d4c8f;
+  --border-blue-lt:#5568c4;
+  --field-navy:#0e1636;
+  --accent-yellow:#ffcf4d;
+  --accent-yellow-dk:#c99a2e;
+  --accent-green:#5ffbc4;
+  --accent-pink:#ff3864;
+  --accent-pink-dk:#9c1638;
+  --ink:#eef0ff;
+  --ink-dim:#9aa3d1;
+  --ink-faint:#5b6394;
+  --danger:#ff5c7a;
+  --font-pixel:'Press Start 2P', monospace;
+  --font-mono:'VT323', monospace;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ height:100%; }
+
+body{
+  font-family:var(--font-mono);
+  color:var(--ink);
+  min-height:100vh;
+  position:relative;
+  overflow-x:hidden;
+  background:
+    linear-gradient(150deg, var(--bg-deep-3) 0%, var(--bg-deep) 45%, var(--bg-deep-2) 100%);
+}
+
+/* ---------- decorative backdrop: night lighthouse scene ---------- */
+
+@property --beam-rotate{
+  syntax:'<angle>';
+  inherits:true;
+  initial-value:270deg;
+}
+
+:root{
+  animation:beaconSweep 9s ease-in-out infinite alternate;
+}
+
+@keyframes beaconSweep{
+  0%   { --beam-rotate:248deg; }
+  50%  { --beam-rotate:272deg; }
+  100% { --beam-rotate:296deg; }
+}
+
+.arcade-bg{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  z-index:0;
+  pointer-events:none;
+  background:#0a0e22;
+}
+
+.sky-scene{
+  position:absolute;
+  inset:0;
+  background-image:url('assets/sky-pixel-bg.png');
+  background-size:cover;
+  background-position:center 60%;
+  image-rendering:pixelated;
+  image-rendering:-moz-crisp-edges;
+  image-rendering:crisp-edges;
+  filter:brightness(0.68) saturate(1.05);
+}
+
+/* beam + mask, pivoted at the lighthouse lamp, sweeping by rotation */
+.beam-glow{
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 900px 900px at calc(100% - 9% - 80px) calc(100% - 296px),
+    rgba(255,232,170,0.30) 0%,
+    rgba(255,232,170,0.13) 30%,
+    rgba(255,232,170,0.04) 55%,
+    transparent 72%);
+  -webkit-mask-image:conic-gradient(from var(--beam-rotate) at calc(100% - 9% - 80px) calc(100% - 296px),
+    transparent 0deg, transparent 6deg,
+    #fff 16deg, #fff 46deg,
+    transparent 56deg, transparent 360deg);
+  mask-image:conic-gradient(from var(--beam-rotate) at calc(100% - 9% - 80px) calc(100% - 296px),
+    transparent 0deg, transparent 6deg,
+    #fff 16deg, #fff 46deg,
+    transparent 56deg, transparent 360deg);
+  mix-blend-mode:screen;
+}
+
+/* floating language / code glyphs, revealed only inside the beam */
+.icon-layer{ position:absolute; inset:0; }
+.icon-layer span{
+  position:absolute;
+  font-family:var(--font-mono);
+  font-size:30px;
+  font-weight:700;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.icon-dim span{ color:rgba(255,255,255,0.10); }
+
+.icon-bright span{
+  color:#fffaf0;
+  text-shadow:
+    -2px 0 0 #241220, 2px 0 0 #241220,
+    0 -2px 0 #241220, 0 2px 0 #241220,
+    -2px -2px 0 #241220, 2px -2px 0 #241220,
+    -2px 2px 0 #241220, 2px 2px 0 #241220,
+    0 0 14px rgba(255,207,77,0.95),
+    0 0 30px rgba(255,207,77,0.6);
+}
+.icon-bright{
+  -webkit-mask-image:conic-gradient(from var(--beam-rotate) at calc(100% - 9% - 80px) calc(100% - 296px),
+    transparent 0deg, transparent 6deg,
+    #fff 16deg, #fff 46deg,
+    transparent 56deg, transparent 360deg);
+  mask-image:conic-gradient(from var(--beam-rotate) at calc(100% - 9% - 80px) calc(100% - 296px),
+    transparent 0deg, transparent 6deg,
+    #fff 16deg, #fff 46deg,
+    transparent 56deg, transparent 360deg);
+}
+
+/* the lighthouse itself — detailed pixel-art raster, hard-edged scaling */
+.lighthouse{
+  position:absolute;
+  right:9%;
+  bottom:0;
+  width:160px;
+  height:373px;
+  background-image:url('assets/lighthouse-pixel.png');
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+  image-rendering:pixelated;
+  image-rendering:-moz-crisp-edges;
+  image-rendering:crisp-edges;
+}
+.lh-finial{
+  position:absolute;
+  top:-9px; left:50%;
+  transform:translateX(-50%);
+  width:3px; height:10px;
+  background:#1a0e18;
+}
+.lh-finial::before{
+  content:"";
+  position:absolute;
+  top:-4px; left:50%;
+  transform:translateX(-50%);
+  width:5px; height:5px;
+  background:#1a0e18;
+}
+
+.beacon-core{
+  position:absolute;
+  left:50%; top:20.7%;
+  transform:translate(-50%,-50%);
+  width:16px; height:16px;
+  background:var(--accent-yellow);
+  box-shadow:
+    0 0 0 3px rgba(255,207,77,0.35),
+    0 0 14px 6px rgba(255,207,77,0.6),
+    0 0 34px 16px rgba(255,207,77,0.3);
+  animation:beaconPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes beaconPulse{
+  0%,100%{ opacity:1; transform:scale(1); }
+  50%{ opacity:0.8; transform:scale(0.88); }
+}
+
+@media (prefers-reduced-motion: reduce){
+  :root{ animation:none; --beam-rotate:272deg; }
+  .beacon-core{ animation:none; }
+}
+
+@media (max-width:900px){
+  .lighthouse{ right:4%; width:110px; transform:scale(0.8); transform-origin:bottom right; }
+}
+
+/* ---------- layout ---------- */
+
+.arcade-shell{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:48px 20px;
+}
+
+/* pixel-cut frame, used on card + buttons */
+.pixel-frame{
+  clip-path:polygon(
+    0 12px, 12px 12px, 12px 0,
+    calc(100% - 12px) 0, calc(100% - 12px) 12px, 100% 12px,
+    100% calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) 100%,
+    12px 100%, 12px calc(100% - 12px), 0 calc(100% - 12px)
+  );
+}
+
+/* ---------- card ---------- */
+
+.card{
+  width:100%;
+  max-width:420px;
+  background:var(--card-navy);
+  border:2px solid var(--border-blue);
+  box-shadow:0 24px 60px -20px rgba(0,0,0,0.7);
+}
+
+.hud-strip{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:var(--hud-navy);
+  border-bottom:2px solid var(--border-blue);
+  padding:12px 16px;
+  font-family:var(--font-pixel);
+  font-size:9px;
+  letter-spacing:0.02em;
+}
+.hud-strip .player{ color:var(--accent-green); }
+.hud-strip .lvl{ color:var(--ink-dim); }
+.hud-strip .xp{ color:var(--accent-yellow); }
+
+.card-body{ padding:30px 30px 28px; }
+
+.logo-row{
+  text-align:center;
+  margin-bottom:4px;
+}
+.logo-row h1{
+  font-family:var(--font-pixel);
+  font-size:32px;
+  letter-spacing:2px;
+  color:var(--accent-yellow);
+  text-shadow:3px 3px 0 var(--accent-yellow-dk), 0 0 18px rgba(255,207,77,0.35);
+  line-height:1;
+}
+.tagline{
+  text-align:center;
+  font-family:var(--font-pixel);
+  font-size:8px;
+  color:var(--ink-faint);
+  letter-spacing:0.06em;
+  margin-top:12px;
+  margin-bottom:26px;
+}
+
+/* ---------- fields ---------- */
+
+.field{ margin-bottom:20px; }
+
+.photo-field{
+  display:flex;
+  justify-content:center;
+  margin-bottom:26px;
+}
+.photo-upload{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+.photo-preview{
+  width:84px; height:84px;
+  border-radius:50%;
+  border:3px solid var(--border-blue);
+  background:var(--field-navy);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.photo-preview img{
+  width:100%; height:100%;
+  object-fit:cover;
+}
+.photo-placeholder{
+  font-size:38px;
+  color:var(--ink-faint);
+}
+.photo-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.photo-btn{
+  font-family:var(--font-pixel);
+  font-size:8px;
+  color:var(--accent-yellow);
+  background:var(--field-navy);
+  border:2px solid var(--border-blue);
+  padding:8px 12px;
+  cursor:pointer;
+  letter-spacing:0.02em;
+}
+.photo-btn:hover{ border-color:var(--accent-yellow); }
+.photo-remove{
+  font-family:var(--font-pixel);
+  font-size:8px;
+  color:var(--danger);
+  background:none;
+  border:2px solid transparent;
+  padding:8px 6px;
+  cursor:pointer;
+}
+.photo-remove:hover{ text-decoration:underline; }
+
+.field-label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--font-pixel);
+  font-size:9px;
+  color:var(--ink-dim);
+  letter-spacing:0.04em;
+  margin-bottom:9px;
+}
+.field-label .ico{ font-size:12px; }
+
+.field input[type="text"],
+.field input[type="email"],
+.field select{
+  width:100%;
+  background:var(--field-navy);
+  border:2px solid var(--border-blue);
+  color:var(--ink);
+  font-family:var(--font-mono);
+  font-size:19px;
+  padding:9px 12px;
+  outline:none;
+}
+.field input::placeholder{ color:var(--ink-faint); font-family:var(--font-mono); }
+.field input:focus,
+.field select:focus{
+  border-color:var(--accent-yellow);
+}
+
+.field select{
+  appearance:none;
+  -webkit-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%239aa3d1' stroke-width='2' fill='none'/></svg>");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  cursor:pointer;
+}
+.field select option{ background:var(--field-navy); color:var(--ink); font-family:var(--font-mono); }
+
+.err{
+  font-family:var(--font-mono);
+  font-size:15px;
+  color:var(--danger);
+  margin-top:6px;
+  display:none;
+}
+.field.invalid input,
+.field.invalid select{ border-color:var(--danger); }
+.field.invalid .err{ display:block; }
+
+/* ---------- difficulty buttons ---------- */
+
+.diff-group{
+  display:flex;
+  gap:8px;
+}
+.diff-btn{
+  flex:1;
+  text-align:center;
+  padding:11px 4px;
+  background:var(--field-navy);
+  border:2px solid var(--border-blue);
+  cursor:pointer;
+  user-select:none;
+}
+.diff-btn .ico{ font-size:14px; display:block; margin-bottom:5px; }
+.diff-btn .lbl{
+  font-family:var(--font-pixel);
+  font-size:7.5px;
+  color:var(--ink-dim);
+  letter-spacing:0.02em;
+}
+.diff-btn:hover{ border-color:var(--border-blue-lt); }
+.diff-btn.active{
+  background:var(--accent-pink);
+  border-color:var(--accent-pink);
+  box-shadow:0 0 0 2px var(--accent-pink-dk);
+}
+.diff-btn.active .lbl{ color:#2a0410; }
+
+#difficultyGroup.invalid .diff-btn{ border-color:var(--danger); }
+#difficultyGroup .err{ margin-top:10px; }
+
+/* ---------- CTA ---------- */
+
+.btn-start{
+  width:100%;
+  margin-top:6px;
+  padding:15px 0;
+  background:var(--accent-yellow);
+  border:2px solid var(--accent-yellow-dk);
+  color:#2a1a00;
+  font-family:var(--font-pixel);
+  font-size:12px;
+  letter-spacing:0.03em;
+  cursor:pointer;
+  box-shadow:0 5px 0 var(--accent-yellow-dk);
+  transition:transform .08s ease, box-shadow .08s ease;
+}
+.btn-start:hover{ filter:brightness(1.05); }
+.btn-start:active{
+  transform:translateY(4px);
+  box-shadow:0 1px 0 var(--accent-yellow-dk);
+}
+
+.foot-note{
+  text-align:center;
+  font-family:var(--font-mono);
+  font-size:15px;
+  color:var(--ink-faint);
+  margin-top:20px;
+  line-height:1.5;
+}
+
+.success-banner{
+  display:none;
+  align-items:center;
+  gap:8px;
+  background:rgba(95,251,196,0.10);
+  border:2px solid var(--accent-green);
+  color:var(--accent-green);
+  font-family:var(--font-mono);
+  font-size:16px;
+  padding:10px 12px;
+  margin-bottom:18px;
+}
+.success-banner.show{ display:flex; }
+
+@media (max-width:480px){
+  .logo-row h1{ font-size:26px; }
+  .card-body{ padding:24px 18px 22px; }
+}
