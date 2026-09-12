@@ -1,11 +1,4 @@
-[README.md](https://github.com/user-attachments/files/32142239/README.md)<img width="1400" height="900" alt="profile" src="https://github.com/user-attachments/assets/6e1dd7dd-a6e1-405e-829f-54498c7bb081" />
-<img width="1400" height="900" alt="login" src="https://github.com/user-attachments/assets/d981e315-bf5f-4f1c-b348-abf0e060c050" />
-<img width="1400" height="900" alt="hub" src="https://github.com/user-attachments/assets/2e418b3c-d076-4141-93df-d6219bf5eb9b" />
-<img width="1400" height="900" alt="home" src="https://github.com/user-attachments/assets/0228c38b-511e-47b6-a0ac-0fb2a48db35e" />
-<img width="1400" height="900" alt="course-python" src="https://github.com/user-attachments/assets/278ba01f-5d5a-4f98-87c5-f0ae4d26f6bd" />
-<img width="1400" height="900" alt="theater" src="https://github.com/user-attachments/assets/ff0ce250-f293-4414-98b5-b01a6b943208" />
-<img width="1400" height="900" alt="signup" src="https://github.com/user-attachments/assets/10351056-285a-4879-b844-72f20d9cfa52" />
-<img width="1400" height="900" alt="settings" src="https://github.com/user-attachments/assets/e4b738bd-0283-45f3-a89c-05ea26b7fb4a" />
+[README.md](https://github.com/user-attachments/files/32142239/README.md)
 
 # 🕹️ BEACON — Gamified Coding Learning Platform
 
